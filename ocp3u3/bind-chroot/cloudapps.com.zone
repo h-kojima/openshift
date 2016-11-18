@@ -1,0 +1,12 @@
+@  		IN  SOA  dns.example.com.  root.dns.example.com. (
+       		2001062501  ; serial
+       		21600       ; refresh after 6 hours
+       		3600        ; retry after 1 hour
+       		604800      ; expire after 1 week
+       		86400 )     ; minimum TTL of 1 day
+;
+;
+		IN NS	dns.example.com.
+;
+*	30m	IN A	192.168.199.121	
+*	30m	IN A	192.168.199.122	

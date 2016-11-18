@@ -1,0 +1,61 @@
+# Sample Inventory file for installation of OpenShift with Ansible Playbook
+# example of use
+# ansible-playbook -i /root/sample-ansible-hosts /usr/share/ansible/openshift-ansible/playbooks/byo/config.yml 
+[OSEv3:children]
+masters
+nodes
+etcd
+lb
+
+
+[OSEv3:vars]
+ansible_ssh_user=root
+deployment_type=openshift-enterprise
+# HTPasswd Authentication
+openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 'challenge': 'true', 'kind': 'HTPasswdPasswordIdentityProvider', 'filename': '/etc/origin/master/htpasswd'}]
+
+# default subdomain to use for exposed routes
+# "xxx.cloudapps.com" must be resolved to IP Address of infa1/infra2 with DNS wild card.
+openshift_master_default_subdomain=cloudapps.com
+
+# Native high availbility cluster method (HAProxy) with optional load balancer.
+# If no lb group is defined installer assumes that a load balancer has
+# been preconfigured. For installation the value of
+# openshift_master_cluster_hostname must resolve to the load balancer
+# or to one or all of the masters defined in the inventory if no load balancer is present.
+openshift_master_cluster_method=native
+openshift_master_cluster_hostname=lb.example.com
+openshift_master_cluster_public_hostname=lb.example.com
+openshift_hosted_router_replicas=2
+openshift_hosted_registry_replicas=2
+
+# External NFS for Docker Registry
+# NFS volume must already exist with path "nfs_directory/volume_name" on the storge_host.
+# The following example with export path is "/exports/nfs/openshift/registry-storage".
+openshift_hosted_registry_storage_kind=nfs
+openshift_hosted_registry_storage_access_modes=['ReadWriteMany']
+openshift_hosted_registry_storage_host=NFS_SERVER_FQDN_OR_IP_ADDRESS
+openshift_hosted_registry_storage_nfs_directory=/exports/nfs/openshift
+openshift_hosted_registry_storage_volume_name=registry-storage
+openshift_hosted_registry_storage_volume_size=50Gi
+
+
+[masters]
+master1.example.com
+master2.example.com
+master3.example.com
+
+
+[etcd]
+master1.example.com
+master2.example.com
+master3.example.com
+
+
+[lb]
+lb.example.com
+
+
+[nodes]
+infra[1:2].example.com openshift_node_labels="{'region': 'infra', 'zone': 'default'}"
+node[1..2].example.com openshift_node_labels="{'region': 'primary', 'zone': 'zone01'}"
