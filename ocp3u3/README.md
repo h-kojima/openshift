@@ -13,11 +13,16 @@ LBのスペックはRHEL7のシステム要件(1コア, 2GBメモリー, ディ�
 
 Step2. OpenShiftをインストールするサーバ全台で、OpenShiftのリポジトリ利用を有効にします。
 
-Step3. Infra Node/Nodeの全台で、Dockerサービスを起動します。
+Step3. Infra Node/Nodeの全台で、Dockerサービスを起動します。本番環境を想定する場合、Dockerのイメージ領域として未使用のディスク領域が必要となります。以下の「sdb」はシステム毎に、「vdb」や「nvme1n1」などに置き換えて下さい。
 
 ```
   # yum -y install docker
   # echo "INSECURE_REGISTRY='--insecure-registry 172.30.0.0/16'" >> /etc/sysconfig/docker
+  # cat <<EOF >> /etc/sysconfig/docker-storage-setup
+  DEVS=/dev/sdb
+  VG=docker-vg
+  EOF
+  # docker-storage-setup
   # systemctl start docker; systemctl enable docker
 ```
 
