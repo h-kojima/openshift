@@ -68,9 +68,10 @@ Step10. 既存のLBのhaproxy/iptablesサービスの設定ファイルを、新
 ```
 Step11. [こちら](https://github.com/h-kojima/openshift/blob/master/ocp3u3/keepalived/keepalived.conf)からダウンロードしたkeepalived.confを、新しいLBの/etc/keepalived/に保存します。この時、設定ファイルのコメントに従って、「state, priority, unicast_peer, virtual_ipaddress」の4項目を適宜修正して下さい。
 
-Step12. 既存LBの電源を落とします。そして、新しいLB全台で各サービスを起動・有効化します。
+Step12. 既存LBの電源を落とします。そして、新しいLB全台で各サービスを起動・有効化します。この時、iptablesサービスを起動しますので、firewalldサービスを停止しておきます。
 
 ```
+  # systemctl stop firewalld; systemctl disable firewalld
   # systemctl start haproxy; systemctl start keepalived; systemctl start iptables
   # systemctl enable haproxy; systemctl enable keepalived; systemctl enable iptables
 ```
