@@ -35,7 +35,7 @@ Step5. 適当なサーバで作成したSSH公開鍵を、OpenShiftをインス�
   # ssh-copy-id root@OPENSHIFT_INSTALL_SERVER
 ```
 
-Step6. Step5.で作成したSSH公開鍵を持つサーバ上で、OpenShiftインストール用に用意されたPlaybookを実行します。
+Step6. Step5.のssh-keygenを実行したサーバで、OpenShiftインストール用に用意されたPlaybookを実行します。
 
 ```
   # yum -y install atomic-openshift-utils
