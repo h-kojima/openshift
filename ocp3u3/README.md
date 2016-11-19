@@ -26,7 +26,7 @@ Step3. Infra Node/Nodeの全台で、Dockerサービスを起動します。本�
   # systemctl start docker; systemctl enable docker
 ```
 
-Step4. OpenShiftインストール用に用意されたAnsibleインベントリファイルを[こちら](https://github.com/h-kojima/openshift/blob/master/ocp3u3/ansible/sample-ansible-hosts)からダウンロードします。インベントリファイルで指定しているDNSワイルドカードについては、[こちらのファイル](https://github.com/h-kojima/openshift/blob/master/ocp3u3/bind-chroot)を参考に設定して下さい。
+Step4. OpenShiftインストール用に用意されたAnsibleインベントリファイルを[こちら](https://github.com/h-kojima/openshift/blob/master/ocp3u3/ansible/sample-ansible-hosts)からダウンロードします。この時、Docker Registryの共有ストレージとして利用するNFSや、ホスト名、アプリケーションのドメイン名などは適宜修正して下さい。インベントリファイルで指定しているDNSワイルドカードについては、[こちらのファイル](https://github.com/h-kojima/openshift/blob/master/ocp3u3/bind-chroot)を参考に設定して下さい。
 
 Step5. 適当なサーバで作成したSSH公開鍵を、OpenShiftをインストールするサーバ全台に配布します。
 
