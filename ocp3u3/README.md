@@ -50,7 +50,7 @@ Step7. HTPasswd認証用のファイルを作成して、Master全台に配布�
   # scp /root/htpasswd root@OPENSHIFT_MASTER_SERVER:/etc/origin/master/
 ```
 
-Step8. https://lb.example.com:8443 にアクセスするとOpenShiftのログイン画面が表示されるので、
+Step8. https://<LB_SERVER_FQDN>:8443 にアクセスするとOpenShiftのログイン画面が表示されるので、
 Step7.で作成したユーザ情報を利用してログインし、OpenShift環境を利用できるようになります。
 
 ### Extra Step
