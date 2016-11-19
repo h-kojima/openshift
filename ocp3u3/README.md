@@ -75,7 +75,7 @@ Step12. 既存LBの電源を落とします。そして、新しいLB全台で�
   # systemctl start haproxy; systemctl start keepalived; systemctl start iptables
   # systemctl enable haproxy; systemctl enable keepalived; systemctl enable iptables
 ```
-Step13. MasterとなるLBで、ipコマンドなどで仮想IPアドレスが割り当てられていることを確認できます。また、keepalivedではHAProxyのプロセスが起動しているかどうかを見ているため、「# systemctl stop haproxy」などでHAProxyを停止すると、BackupとなるLBに仮想IPアドレスが引き継がれることを確認できます。
+Step13. MasterとなるLBで、ipコマンドなどで仮想IPアドレスが割り当てられていることを確認できます。また、このkeepalivedの設定ではHAProxyのプロセスが起動しているかどうかを見ているため、「# systemctl stop haproxy」などでHAProxyを停止すると、BackupとなるLBに仮想IPアドレスが引き継がれることを確認できます。
 
 ## Revision History:
 
