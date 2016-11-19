@@ -53,10 +53,29 @@ Step7. HTPasswd認証用のファイルを作成して、Master全台に配布�
 Step8. https://lb.example.com:8443 にアクセスするとOpenShiftのログイン画面が表示されるので、
 Step7.で作成したユーザ情報を利用してログインし、OpenShift環境を利用できるようになります。
 
-Extra Step. ここまでの手順だとLBが1台構成でSPOFになりますので、必要に応じてKeepAlived + Virtual IPでLBを冗長化して下さい。LBの冗長化手順については[こちら](https://access.redhat.com/documentation/ja-JP/Red_Hat_Enterprise_Linux/7/html/Load_Balancer_Administration/index.html)をご参照下さい。
-  
-  
-  
+### Extra Step
+
+Step9. ここまでの手順だとLBが1台構成でSPOFになります。そこで、KeepAlivedでHAProxyサービスを簡易的に冗長化します。まず、新しいLBとなるRHEL7サーバを2台(Master1台、Backup1台の計2台構成です)用意し、必要なパッケージをインストールします。
+
+```
+  # yum -y install keepalived haproxy iptables-services
+```
+Step10. 既存のLBのhaproxy/iptablesサービスの設定ファイルを、新しいLB全台にコピーします。
+
+```
+  # scp /etc/haproxy/haproxy.cfg root@OPENSHIFT_NEW_LB_SERVER:/etc/haproxy/
+  # scp /etc/sysconfig/iptables root@OPENSHIFT_NEW_LB_SERVER:/etc/sysconfig/
+```
+Step11. [こちら](https://github.com/h-kojima/openshift/blob/master/ocp3u3/keepalived/keepalived.conf)からダウンロードしたkeepalived.confを、新しいLBの/etc/keepalived/に保存します。この時、設定ファイルのコメントに従って、「state, priority, unicast_peer, virtual_ipaddress」の4項目を適宜修正して下さい。
+
+Step12. 既存LBの電源を落とします。そして、新しいLB全台で各サービスを起動・有効化します。
+
+```
+  # systemctl start haproxy; systemctl start keepalived; systemctl start iptables
+  # systemctl enable haproxy; systemctl enable keepalived; systemctl enable iptables
+```
+Step13. MasterとなるLBで、ipコマンドなどで仮想IPアドレスが割り当てられていることを確認できます。また、keepalivedではHAProxyのプロセスが起動しているかどうかを見ているため、「# systemctl stop haproxy」などでHAProxyを停止すると、BackupとなるLBに仮想IPアドレスが引き継がれることを確認できます。
+
 ## Revision History:
 
-2016-11-18  version 0.1 初版リリース
+2016-11-19  version 0.1 初版リリース
