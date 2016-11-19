@@ -55,7 +55,7 @@ Step7.で作成したユーザ情報を利用してログインし、OpenShift�
 
 ### Extra Step
 
-Step9. ここまでの手順だとLBが1台構成でSPOFになります。そこで、KeepAlivedでHAProxyサービスを簡易的に冗長化します。まず、新しいLBとなるRHEL7サーバを2台(Master1台、Backup1台の計2台構成です)用意し、必要なパッケージをインストールします。
+Step9. ここまでの手順だとLBが1台構成でSPOFになります。そこで、KeepAlivedでHAProxyサービスを簡易的に冗長化します。まず、新しいLBとなるRHEL7サーバを2台(Master1台、Backup1台の計2台構成)用意し、必要なパッケージをインストールします。
 
 ```
   # yum -y install keepalived haproxy iptables-services
