@@ -13,7 +13,7 @@ LBのスペックはRHEL7のシステム要件(1コア, 2GBメモリー, ディ�
 
 Step2. OpenShiftをインストールするサーバ全台で、OpenShiftのリポジトリ利用を有効にします。
 
-Step3. Infra Node/Nodeの全台で、Dockerサービスを起動します。本番環境を想定する場合、Dockerのイメージ領域として未使用のディスク領域が必要となります。以下の「sdb」はシステム毎に、「vdb」や「nvme1n1」などに置き換えて下さい。
+Step3. Master/Infra Node/Nodeの全台で、Dockerサービスを起動します。本番環境を想定する場合、Dockerのイメージ領域として未使用のディスク領域が必要となります。以下の「sdb」はシステム毎に、「vdb」や「nvme1n1」などに置き換えて下さい。
 
 ```
   # yum -y install docker
