@@ -49,7 +49,7 @@ Step7. HTPasswd認証用のファイルを作成して、Master全台に配布�
   # htpasswd -c /root/htpasswd $USERNAME1
   # scp /root/htpasswd root@$OPENSHIFT_MASTER_SERVER:/etc/origin/master/
 ```
-Step8. Infra NodeでRouter/Docker Registry以外のPodが起動しないように、Infra Nodeへの新規Podの配置を無効化します。次のコマンドを任意のMasterサーバ上で実行します。
+Step8. Infra NodeへのアプリケーションPodの配置を無効化します。次のコマンドを任意のMasterサーバ上で実行します。
 
 ```
   # oadm manage-node $INFRA_NODE1 $INFRA_NODE2 --schedulable=false
