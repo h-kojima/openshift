@@ -52,6 +52,7 @@ Step7. HTPasswd認証用のファイルを作成して、Master全台に配布�
 Step8. Infra NodeへのアプリケーションPodの配置を無効化します。次のコマンドを任意のMasterサーバ上で実行します。
 
 ```
+  # oc login -u system:admin
   # oadm manage-node $INFRA_NODE1 $INFRA_NODE2 --schedulable=false
 ```
 
