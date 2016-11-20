@@ -27,7 +27,6 @@ openshift_master_cluster_method=native
 openshift_master_cluster_hostname=lb.example.com
 openshift_master_cluster_public_hostname=lb.example.com
 openshift_hosted_router_replicas=2
-openshift_hosted_registry_replicas=2
 
 # External NFS for Docker Registry
 # NFS volume must already exist with path "nfs_directory/volume_name" on the storge_host.
