@@ -32,7 +32,7 @@ Step5. 適当なサーバで作成したSSH公開鍵を、OpenShiftをインス�
 
 ```
   # ssh-keygen
-  # ssh-copy-id root@OPENSHIFT_INSTALL_SERVER
+  # ssh-copy-id root@$OPENSHIFT_INSTALL_SERVER
 ```
 
 Step6. Step5.のssh-keygenを実行したサーバで、OpenShiftインストール用に用意されたPlaybookを実行します。
@@ -46,36 +46,41 @@ Step7. HTPasswd認証用のファイルを作成して、Master全台に配布�
 
 ```
   # yum -y install httpd-tools
-  # htpasswd -c /root/htpasswd USERNAME1
-  # scp /root/htpasswd root@OPENSHIFT_MASTER_SERVER:/etc/origin/master/
+  # htpasswd -c /root/htpasswd $USERNAME1
+  # scp /root/htpasswd root@$OPENSHIFT_MASTER_SERVER:/etc/origin/master/
+```
+Step8. Infra NodeでRouter/Docker Registry以外のPodが起動しないように、Infra Nodeへの新規Podの配置を無効化します。次のコマンドを任意のMasterサーバ上で実行します。
+
+```
+  # oadm manage-node $INFRA_NODE1 $INFRA_NODE2 --schedulable=false
 ```
 
-Step8. https://LB_SERVER_FQDN:8443 にアクセスするとOpenShiftのログイン画面が表示されるので、
+Step9. https://LB_SERVER_FQDN:8443 にアクセスするとOpenShiftのログイン画面が表示されるので、
 Step7.で作成したユーザ情報を利用してログインし、OpenShift環境を利用できるようになります。
 
 ### Extra Step
 
-Step9. ここまでの手順だとLBが1台構成でSPOFになります。そこで、KeepAlivedでHAProxyサービスを簡易的に冗長化します。まず、新しいLBとなるRHEL7サーバを2台(Master1台、Backup1台の計2台構成)用意し、必要なパッケージをインストールします。
+Step10. ここまでの手順だとLBが1台構成でSPOFになります。そこで、KeepAlivedでHAProxyサービスを簡易的に冗長化します。まず、新しいLBとなるRHEL7サーバを2台(Master1台、Backup1台の計2台構成)用意し、必要なパッケージをインストールします。
 
 ```
   # yum -y install keepalived haproxy iptables-services
 ```
-Step10. 既存のLBのhaproxy/iptablesサービスの設定ファイルを、新しいLB全台にコピーします。
+Step11. 既存のLBのhaproxy/iptablesサービスの設定ファイルを、新しいLB全台にコピーします。
 
 ```
-  # scp /etc/haproxy/haproxy.cfg root@OPENSHIFT_NEW_LB_SERVER:/etc/haproxy/
-  # scp /etc/sysconfig/iptables root@OPENSHIFT_NEW_LB_SERVER:/etc/sysconfig/
+  # scp /etc/haproxy/haproxy.cfg root@$OPENSHIFT_NEW_LB_SERVER:/etc/haproxy/
+  # scp /etc/sysconfig/iptables root@$OPENSHIFT_NEW_LB_SERVER:/etc/sysconfig/
 ```
-Step11. [こちら](https://github.com/h-kojima/openshift/blob/master/ocp3u3/keepalived/keepalived.conf)からダウンロードしたkeepalived.confを、新しいLBの/etc/keepalived/に保存します。この時、設定ファイルのコメントを参考にして、「state, priority, unicast_peer, virtual_ipaddress」の4項目を適宜修正して下さい。
+Step12. [こちら](https://github.com/h-kojima/openshift/blob/master/ocp3u3/keepalived/keepalived.conf)からダウンロードしたkeepalived.confを、新しいLBの/etc/keepalived/に保存します。この時、設定ファイルのコメントを参考にして、「state, priority, unicast_peer, virtual_ipaddress」の4項目を適宜修正して下さい。
 
-Step12. 既存LBの電源を落とします。そして、新しいLB全台で各サービスを起動・有効化します。この時、iptablesサービスを起動しますので、firewalldサービスを停止しておきます。
+Step13. 既存LBの電源を落とします。そして、新しいLB全台で各サービスを起動・有効化します。この時、iptablesサービスを起動しますので、firewalldサービスを停止しておきます。
 
 ```
   # systemctl stop firewalld; systemctl disable firewalld
   # systemctl start haproxy; systemctl start keepalived; systemctl start iptables
   # systemctl enable haproxy; systemctl enable keepalived; systemctl enable iptables
 ```
-Step13. MasterとなるLBで、ipコマンドなどで仮想IPアドレスが割り当てられていることを確認できます。また、このkeepalivedの設定ではHAProxyのプロセスが起動しているかどうかを見ているため、「# systemctl stop haproxy」などでHAProxyを停止すると、BackupとなるLBに仮想IPアドレスが引き継がれることを確認できます。
+Step14. MasterとなるLBで、ipコマンドなどで仮想IPアドレスが割り当てられていることを確認できます。また、このkeepalivedの設定ではHAProxyのプロセスが起動しているかどうかを見ているため、「# systemctl stop haproxy」などでHAProxyを停止すると、BackupとなるLBに仮想IPアドレスが引き継がれることを確認できます。
 
 ## Revision History:
 
