@@ -2,7 +2,7 @@
 
 次のようなモデル図に沿った環境の構築手順イメージを記載します。
 
-![モデル図](https://github.com/h-kojima/openshift/blob/master/ocp3u3/images/openshift-deployement-model.png)
+![モデル図](https://github.com/h-kojima/openshift/blob/master/ocp3u3/images/openshift-deployment-model.png)
 
 ## 構築手順イメージ
 
