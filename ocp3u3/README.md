@@ -31,7 +31,7 @@ Step4. OpenShiftインストール用に用意されたAnsibleインベントリ
 Step5. 適当なサーバで作成したSSH公開鍵を、OpenShiftをインストールするサーバ全台に配布します。
 
 ```
-  # ssh-keygen
+  # ssh-keygen -f /root/.ssh/id_rsa -N ''
   # ssh-copy-id root@$OPENSHIFT_INSTALL_SERVER
 ```
 
