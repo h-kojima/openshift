@@ -4,7 +4,7 @@
 
 ![モデル図](https://github.com/h-kojima/openshift/blob/master/ocp3u3/images/openshift-deployment-model.png)
 
-## 構築手順イメージ
+## version3.3の構築手順イメージ
 
 Step1. OpenShiftをインストールする最新版のRHEL7サーバ(物理でも仮想でも可)を用意します。
 LB x1台、Master x3台、Infra Node x2台、Node x2台の計8台を用意します。
@@ -58,6 +58,8 @@ Step8. Infra NodeへのアプリケーションPodの配置を無効化します
 
 Step9. https://LB_SERVER_FQDN:8443 にアクセスするとOpenShiftのログイン画面が表示されるので、
 Step7.で作成したユーザ情報を利用してログインし、OpenShift環境を利用できるようになります。
+
+なお、アプリケーションへのルーティングには、デフォルトのRouter(HAProxy) Pod以外にもF5のルータを利用することもできます。その場合、Router Podの起動が必要なくなるので、Infra Nodeを構築する必要がなくなります。F5ルータの利用手順の詳細は[こちら](https://access.redhat.com/documentation/en/openshift-container-platform/3.3/single/installation-and-configuration/#install-config-router-f5)をご参照下さい。
 
 ### Extra Step
 
