@@ -56,5 +56,5 @@ lb.example.com
 
 
 [nodes]
-infra[1:2].example.com openshift_node_labels="{'region': 'infra', 'zone': 'default'}"
-node[1..2].example.com openshift_node_labels="{'region': 'primary', 'zone': 'zone01'}"
+infra[1:2].example.com openshift_node_labels="{'region': 'infra'}"
+node[1:2].example.com openshift_node_labels="{'region': 'primary', 'zone': 'zone01'}"
