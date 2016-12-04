@@ -87,4 +87,4 @@ Step14. MasterとなるLBで、ipコマンドなどで仮想IPアドレスが割
 
 ## Revision History:
 
-2016-11-19  version 0.1 初版リリース
+2016-11-19 初版リリース
