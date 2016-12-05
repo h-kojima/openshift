@@ -1,6 +1,6 @@
 # Multi Master/Multi NodeのOpenShift環境
 
-次のようなモデル図に沿った環境の構築手順イメージを記載します。
+次のようなモデル図に沿った環境の構築手順イメージを記載します。作成した環境のメンテナンス(Nodeの追加など)については、[こちら](https://github.com/h-kojima/openshift/blob/master/ocp3u3/maintenance.md)に記載します。
 
 ![モデル図](https://github.com/h-kojima/openshift/blob/master/ocp3u3/images/openshift-deployment-model.png)
 
@@ -87,4 +87,5 @@ Step14. MasterとなるLBで、ipコマンドなどで仮想IPアドレスが割
 
 ## Revision History:
 
+2016-12-05 メンテナンスのリンクを追加  
 2016-11-19 初版リリース
