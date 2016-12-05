@@ -1,0 +1,21 @@
+[OSEv3:children]
+masters
+nodes
+new_nodes
+
+[OSEv3:vars]
+ansible_ssh_user=root
+deployment_type=openshift-enterprise
+
+[masters]
+master1.example.com
+master2.example.com
+master3.example.com
+
+# host group for nodes, includes region info
+[nodes]
+infra[1:2].example.com openshift_node_labels="{'region': 'infra'}" 
+node[1:2].example.com openshift_node_labels="{'region': 'primary', 'zone': 'zone01'}"
+
+[new_nodes]
+node3.example.com openshift_node_labels="{'region': 'primary', 'zone': 'zone02'}"

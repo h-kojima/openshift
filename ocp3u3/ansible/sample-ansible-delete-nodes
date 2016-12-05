@@ -1,0 +1,9 @@
+[OSEv3:children]
+nodes
+
+[OSEv3:vars]
+ansible_ssh_user=root
+deployment_type=openshift-enterprise
+
+[nodes]
+node3.example.com openshift_node_labels="{'region': 'primary', 'zone': 'zone02'}"
