@@ -36,7 +36,7 @@ Ansibleインベントリファイルを設定します。
 ```
 
 ## Dockerイメージの共有
-OpenShiftのDocker Registryを使い、プロジェクト内でDockerイメージを共有できます。  
+OpenShiftのDocker Registryを使い、プロジェクト内でカスタムDockerイメージを共有できます。  
 
 Step1. OpenShiftのDocker RegistryのWeb UIを提供するRegistry ConsoleのURLを確認します。
 
