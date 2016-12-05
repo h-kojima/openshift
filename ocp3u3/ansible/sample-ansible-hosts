@@ -31,7 +31,7 @@ openshift_hosted_router_replicas=2
 # External NFS for Docker Registry
 # NFS volume must already exist with path "nfs_directory/volume_name" on the storge_host.
 # The following example with export path is "/exports/nfs/openshift/registry-storage".
-# Please refer about NFS Volume Security.
+# Please refer to the following URL, about NFS Volume Security.
 # https://docs.openshift.com/container-platform/3.3/install_config/persistent_storage/persistent_storage_nfs.html
 openshift_hosted_registry_storage_kind=nfs
 openshift_hosted_registry_storage_access_modes=['ReadWriteMany']
