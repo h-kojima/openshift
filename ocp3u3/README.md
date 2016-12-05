@@ -1,4 +1,4 @@
-# Multi Master/Multi NodeのOpenShift環境
+# Multiple Masters/Multiple NodesのOpenShift環境
 
 次のようなモデル図に沿った環境の構築手順イメージを記載します。  
 作成した環境のメンテナンス(Nodeの追加など)については、[こちら](https://github.com/h-kojima/openshift/blob/master/ocp3u3/maintenance.md)に記載します。
