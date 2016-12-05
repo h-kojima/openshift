@@ -1,5 +1,5 @@
 ## Nodeの追加
-[こちら](https://github.com/h-kojima/openshift/blob/master/ocp3u3/ansible/sample-ansible-hosts)を参考に
+[こちら](https://github.com/h-kojima/openshift/blob/master/ocp3u3/ansible/sample-ansible-add-nodes)を参考に
 Ansibleインベントリファイルを設定します。そしてNode追加用のPlaybookを実行します。
 
 ```
@@ -16,14 +16,16 @@ Infra Nodeを追加しても、「oc get pods -n default」で確認できるRou
 
 ## Nodeの削除
 
-Step1. 削除対象のNodeからPodを移動します。"--evacuate"でPodが新規作成された後に、該当NodeのPodが削除されます。
+Step1. 削除対象のNodeからPodを移動します。  
+"--evacuate"でPodが新規作成された後に、該当NodeのPodが削除されます。
 ```
   # oc adm manage-node $NODE_NAME --schedulable=false
   # oc adm manage-node $NODE_NAME --evacuate 
 ```
 
-Step2. [こちら](https://github.com/h-kojima/openshift/blob/master/ocp3u3/ansible/sample-ansible-hosts)を参考に
-Ansibleインベントリファイルを設定します。そして該当Nodeを削除して、Nodeクリーンアップ用のPlaybookを実行します。
+Step2. [こちら](https://github.com/h-kojima/openshift/blob/master/ocp3u3/ansible/sample-ansible-delete-nodes)を参考に
+Ansibleインベントリファイルを設定します。  
+そして該当Nodeを削除して、Nodeクリーンアップ用のPlaybookを実行します。
 
 ```
   # oc delete node $NODE_NAME ("-l zone=zone02"などでラベル指定も可能)
