@@ -37,6 +37,10 @@ Ansibleインベントリファイルを設定します。
 
 ## Dockerイメージの共有
 OpenShiftのDocker Registryを使い、プロジェクト内でカスタムDockerイメージを共有できます。  
+ただし、OpenShift環境ではDockerイメージからアプリケーションを起動する際に、セキュリティを考慮してコンテナ内のプロセスのrootユーザでの実行を禁止し、プロセス実行時にはランダムなUIDを割り当てます。そのため、コンテナ内のプロセスは任意の一般ユーザで実行できるようにするために、Dockerfileでの次の設定を忘れないようにしてください。
+
+・USER項目での一般ユーザの指定 (USERを指定しない場合rootユーザでプロセスが実行されます)  
+・RUN項目などでの設定/実行ファイルのアクセス権追加 (chmod ugo+rxなど)
 
 Step1. OpenShiftのDocker RegistryのWeb UIを提供するRegistry ConsoleのURLを確認します。
 
