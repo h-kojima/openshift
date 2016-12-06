@@ -42,7 +42,7 @@ OpenShiftのDocker Registryを使い、プロジェクト内でカスタムDocke
 ・USER項目での一般ユーザの指定 (USERを指定しない場合rootユーザでプロセスが実行されます)  
 ・RUN項目などでの設定/実行ファイルのアクセス権追加 (chmod ugo+rxなど)
 
-Step1. OpenShiftのDocker RegistryのWeb UIを提供するRegistry ConsoleのURLを確認します。
+Step1. OpenShift環境のDocker RegistryのWeb UIを提供するRegistry ConsoleのURLを確認します。
 
 ```
   # oc login -u system:admin
@@ -53,7 +53,7 @@ Step1. OpenShiftのDocker RegistryのWeb UIを提供するRegistry ConsoleのURL
   registry-console    registry-console-default.cloudapps.com 
 ```
 
-Step2. Registry ConsoleのURLにWebブラウザ(上の例では`https://registry-console-default.cloudapps.com`)にアクセスします。
+Step2. Registry ConsoleのURLにWebブラウザ(上の例では`https://registry-console-default.cloudapps.com`)からアクセスします。
 ログインには、OpenShift環境が利用している認証情報と同じものを利用します。
 
 <img src="https://github.com/h-kojima/openshift/blob/master/ocp3u3/images/registry-console.png" width="50%" height="50%">
