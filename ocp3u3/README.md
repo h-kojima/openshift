@@ -55,7 +55,7 @@ Step8. Infra NodeへのアプリケーションPodの配置を無効化します
 
 ```
   # oc login -u system:admin
-  # oadm manage-node $INFRA_NODE1 $INFRA_NODE2 --schedulable=false
+  # oc adm manage-node $INFRA_NODE1 $INFRA_NODE2 --schedulable=false
 ```
 
 Step9. https://LB_SERVER_FQDN:8443 にアクセスするとOpenShiftのログイン画面が表示されるので、
