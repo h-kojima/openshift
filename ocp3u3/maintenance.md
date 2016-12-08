@@ -56,7 +56,7 @@ Step1. OpenShift環境のDocker RegistryのWeb UIを提供するRegistry Console
 Step2. Registry ConsoleのURLにWebブラウザ(上の例では`https://registry-console-default.cloudapps.com`)からアクセスします。
 ログインには、OpenShift環境が利用している認証情報と同じものを利用します。
 
-<img src="https://github.com/h-kojima/openshift/blob/master/ocp3u3/images/registry-console.png" width="50%" height="50%">
+<img src="https://github.com/h-kojima/openshift/blob/master/ocp3u3/images/registry-console.png" width="100%" height="100%">
 
 Step3. 上記画面で確認したLogin/Pushに関する情報を利用して、指定したプロジェクトにDockerイメージをPushします。  
 これにより、PushしたDockerイメージを利用してプロジェクト内でアプリケーションをデプロイできるようになります。
