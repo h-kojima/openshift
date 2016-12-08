@@ -13,7 +13,7 @@ LB x1台、Master x3台、Infra Node x2台、Node x2台の計8台を用意しま
 Master/Nodeの推奨スペックは[こちら](https://access.redhat.com/documentation/en/openshift-container-platform/3.3/single/installation-and-configuration/#install-config-install-prerequisites)をご参照下さい。
 LBのスペックはRHEL7のシステム要件(1コア, 2GBメモリー, ディスク容量20GB程度)を満たせば、最低限動作するはずです。
 
-Step2. OpenShiftをインストールするサーバ全台で、OpenShiftのリポジトリ利用を有効にします。
+Step2. OpenShiftをインストールするサーバ全台で、[OpenShiftのリポジトリ利用を有効](https://access.redhat.com/documentation/en/openshift-container-platform/3.3/single/installation-and-configuration/#host-registration)にします。
 
 Step3. Master/Infra Node/Nodeの全台で、Dockerサービスを起動します。本番環境を想定する場合、Dockerのイメージ領域として未使用のディスク領域が必要となります。以下の「sdb」はシステム毎に、「vdb」や「nvme1n1」などに置き換えて下さい。
 
