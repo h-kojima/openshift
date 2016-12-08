@@ -11,7 +11,9 @@
 Step1. OpenShiftをインストールする最新版のRHEL7サーバ(物理でも仮想でも可)を用意します。
 LB x1台、Master x3台、Infra Node x2台、Node x2台の計8台を用意します。
 Master/Nodeの推奨スペックは[こちら](https://access.redhat.com/documentation/en/openshift-container-platform/3.3/single/installation-and-configuration/#install-config-install-prerequisites)をご参照下さい。
-LBのスペックはRHEL7のシステム要件(1コア, 2GBメモリー, ディスク容量20GB程度)を満たせば、最低限動作するはずです。
+LBのスペックはRHEL7のシステム要件(1コア, 2GBメモリー, ディスク容量20GB程度)を満たせば、最低限動作するはずです。  
+  
+また、[DNS/Firewall/Proxyといった環境面を整備](https://access.redhat.com/documentation/en/openshift-container-platform/3.3/single/installation-and-configuration/#envirornment-requirements)するのと同時に、OpenShiftのインストール時には[Red HatのCDN](https://access.redhat.com/ja/node/321223)からRPMパッケージを、[registry.access.redhat.comからDockerイメージを取得](https://access.redhat.com/ja/node/1365643)できるようにする必要があります。  
 
 Step2. OpenShiftをインストールするサーバ全台で、[OpenShiftのリポジトリ利用を有効](https://access.redhat.com/documentation/en/openshift-container-platform/3.3/single/installation-and-configuration/#host-registration)にします。
 
