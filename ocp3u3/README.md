@@ -2,7 +2,7 @@
 
 次のようなモデル図に沿った環境の構築手順イメージを記載します。  
 作成した環境のメンテナンス(Nodeの追加など)については、[こちら](https://github.com/h-kojima/openshift/blob/master/ocp3u3/maintenance.md)に記載します。  
-コマンドチートシートや各種ハンズオン資料は[こちら](https://github.com/nekop/openshift-sandbox/tree/master/docs)をご参照ください。
+コマンドチートシートや各種ハンズオン資料は[こちら](https://github.com/nekop/openshift-sandbox/tree/master/docs)や[こちら](https://github.com/akubicharm/OpenShiftv3HandsOn/)をご参照ください。
 
 ![モデル図](https://github.com/h-kojima/openshift/blob/master/ocp3u3/images/openshift-deployment-model.png)
 
