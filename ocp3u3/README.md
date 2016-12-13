@@ -20,14 +20,14 @@ Step2. OpenShiftをインストールするサーバ全台で、[OpenShiftのリ
 Step3. Master/Infra Node/Nodeの全台で、Dockerサービスを起動します。本番環境を想定する場合、Dockerのイメージ領域として未使用のディスク領域が必要となります。以下の「sdb」はシステム毎に、「vdb」や「nvme1n1」などに置き換えて下さい。
 
 ```
-  # yum -y install docker
-  # echo "INSECURE_REGISTRY='--insecure-registry 172.30.0.0/16'" >> /etc/sysconfig/docker
-  # cat <<EOF >> /etc/sysconfig/docker-storage-setup
-  DEVS=/dev/sdb
-  VG=docker-vg
-  EOF
-  # docker-storage-setup
-  # systemctl start docker; systemctl enable docker
+# yum -y install docker
+# echo "INSECURE_REGISTRY='--insecure-registry 172.30.0.0/16'" >> /etc/sysconfig/docker
+# cat <<EOF >> /etc/sysconfig/docker-storage-setup
+DEVS=/dev/sdb
+VG=docker-vg
+EOF
+# docker-storage-setup
+# systemctl start docker; systemctl enable docker
 ```
 
 Step4. OpenShiftインストール用に用意されたAnsibleインベントリファイルを[こちら](https://github.com/h-kojima/openshift/blob/master/ocp3u3/ansible/sample-ansible-hosts)からダウンロードします。この時、Docker Registryの共有ストレージとして利用するNFSや、ホスト名、アプリケーションのドメイン名などは適宜修正して下さい。インベントリファイルで指定しているDNSワイルドカードについては、[こちらのファイル](https://github.com/h-kojima/openshift/blob/master/ocp3u3/bind-chroot)を参考に設定して下さい。
@@ -35,29 +35,29 @@ Step4. OpenShiftインストール用に用意されたAnsibleインベントリ
 Step5. 適当なサーバで作成したSSH公開鍵を、OpenShiftをインストールするサーバ全台に配布します。
 
 ```
-  # ssh-keygen -f /root/.ssh/id_rsa -N ''
-  # ssh-copy-id root@$OPENSHIFT_INSTALL_SERVER
+# ssh-keygen -f /root/.ssh/id_rsa -N ''
+# ssh-copy-id root@$OPENSHIFT_INSTALL_SERVER
 ```
 
 Step6. Step5.のssh-keygenを実行したサーバで、OpenShiftインストール用に用意されたPlaybookを実行します。
 
 ```
-  # yum -y install atomic-openshift-utils
-  # ansible-playbook -i /root/sample-ansible-hosts /usr/share/ansible/openshift-ansible/playbooks/byo/config.yml
+# yum -y install atomic-openshift-utils
+# ansible-playbook -i /root/sample-ansible-hosts /usr/share/ansible/openshift-ansible/playbooks/byo/config.yml
 ```
 
 Step7. HTPasswd認証用のファイルを作成して、Master全台に配布します。
 
 ```
-  # yum -y install httpd-tools
-  # htpasswd -c /root/htpasswd $USERNAME1
-  # scp /root/htpasswd root@$OPENSHIFT_MASTER_SERVER:/etc/origin/master/
+# yum -y install httpd-tools
+# htpasswd -c /root/htpasswd $USERNAME1
+# scp /root/htpasswd root@$OPENSHIFT_MASTER_SERVER:/etc/origin/master/
 ```
 Step8. Infra NodeへのアプリケーションPodの配置を無効化します。次のコマンドを任意のMasterサーバ上で実行します。
 
 ```
-  # oc login -u system:admin
-  # oc adm manage-node $INFRA_NODE1 $INFRA_NODE2 --schedulable=false
+# oc login -u system:admin
+# oc adm manage-node $INFRA_NODE1 $INFRA_NODE2 --schedulable=false
 ```
 
 Step9. https://LB_SERVER_FQDN:8443 にアクセスするとOpenShiftのログイン画面が表示されるので、
@@ -70,22 +70,22 @@ Step7.で作成したユーザ情報を利用してログインし、OpenShift�
 Step10. ここまでの手順だとLBが1台構成でSPOFになります。そこで、KeepAlivedでHAProxyサービスを簡易的に冗長化します。まず、新しいLBとなるRHEL7サーバを2台(Master1台、Backup1台の計2台構成)用意し、必要なパッケージをインストールします。
 
 ```
-  # yum -y install keepalived haproxy iptables-services
+# yum -y install keepalived haproxy iptables-services
 ```
 Step11. 既存のLBのhaproxy/iptablesサービスの設定ファイルを、新しいLB全台にコピーします。
 
 ```
-  # scp /etc/haproxy/haproxy.cfg root@$OPENSHIFT_NEW_LB_SERVER:/etc/haproxy/
-  # scp /etc/sysconfig/iptables root@$OPENSHIFT_NEW_LB_SERVER:/etc/sysconfig/
+# scp /etc/haproxy/haproxy.cfg root@$OPENSHIFT_NEW_LB_SERVER:/etc/haproxy/
+# scp /etc/sysconfig/iptables root@$OPENSHIFT_NEW_LB_SERVER:/etc/sysconfig/
 ```
 Step12. [こちら](https://github.com/h-kojima/openshift/blob/master/ocp3u3/keepalived/keepalived.conf)からダウンロードしたkeepalived.confを、新しいLBの/etc/keepalived/に保存します。この時、設定ファイルのコメントを参考にして、「state, priority, unicast_peer, virtual_ipaddress」の4項目を適宜修正して下さい。
 
 Step13. 既存LBの電源を落とします。そして、新しいLB全台で各サービスを起動・有効化します。この時、iptablesサービスを起動しますので、firewalldサービスを停止しておきます。
 
 ```
-  # systemctl stop firewalld; systemctl disable firewalld
-  # systemctl start haproxy; systemctl start keepalived; systemctl start iptables
-  # systemctl enable haproxy; systemctl enable keepalived; systemctl enable iptables
+# systemctl stop firewalld; systemctl disable firewalld
+# systemctl start haproxy; systemctl start keepalived; systemctl start iptables
+# systemctl enable haproxy; systemctl enable keepalived; systemctl enable iptables
 ```
 Step14. MasterとなるLBで、ipコマンドなどで仮想IPアドレスが割り当てられていることを確認できます。また、このkeepalivedの設定ではHAProxyのプロセスが起動しているかどうかを見ているため、「# systemctl stop haproxy」などでHAProxyを停止すると、BackupとなるLBに仮想IPアドレスが引き継がれることを確認できます。
 
