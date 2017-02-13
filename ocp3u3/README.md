@@ -63,7 +63,7 @@ Step8. Infra NodeへのアプリケーションPodの配置を無効化します
 Step9. https://LB_SERVER_FQDN:8443 にアクセスするとOpenShiftのログイン画面が表示されるので、
 Step7.で作成したユーザ情報を利用してログインし、OpenShift環境を利用できるようになります。
 
-なお、アプリケーションへのルーティングには、デフォルトのRouter(HAProxy) Pod以外にもF5のルータを利用することもできます。その場合、Router Podの起動が必要なくなるので、Infra Nodeを構築する必要がなくなります。F5ルータの利用手順の詳細は[こちら](https://access.redhat.com/documentation/en/openshift-container-platform/3.3/single/installation-and-configuration/#install-config-router-f5)をご参照下さい。
+なお、アプリケーションへのルーティングには、デフォルトのRouter(HAProxy) Pod以外にもF5のルータを利用することもできます。F5ルータの利用手順の詳細は[こちら](https://access.redhat.com/documentation/en/openshift-container-platform/3.3/single/installation-and-configuration/#install-config-router-f5)をご参照下さい。
 
 ### Extra Step
 
