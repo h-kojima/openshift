@@ -1,0 +1,84 @@
+# Create an OSEv3 group that contains the master, nodes, etcd, and lb groups.
+# The lb group lets Ansible configure HAProxy as the load balancing solution.
+# Comment lb out if your load balancer is pre-configured.
+[OSEv3:children]
+masters
+nodes
+nfs
+#etcd
+#lb
+
+# Set variables common for all OSEv3 hosts
+[OSEv3:vars]
+ansible_ssh_user=root
+deployment_type=openshift-enterprise
+
+osm_use_cockpit=true
+osm_cockpit_plugins=['cockpit-kubernetes']
+
+#openshift_master_api_port=443
+#openshift_master_console_port=443
+
+os_sdn_network_plugin_name='redhat/openshift-ovs-multitenant'
+
+# Uncomment the following to enable htpasswd authentication; defaults to DenyAllPasswordIdentityProvider.
+openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 'challenge': 'true', 'kind': 'HTPasswdPasswordIdentityProvider', 'filename': '/etc/origin/master/htpasswd'}]
+openshift_master_htpasswd_file=/root/htpasswd
+
+openshift_disable_check=docker_storage
+
+
+# default subdomain to use for exposed routes
+openshift_master_default_subdomain=127.0.0.1.xip.io
+
+#openshift_hosted_router_replicas=2
+#openshift_hosted_registry_replicas=2
+# External NFS Host
+# NFS volume must already exist with path "nfs_directory/_volume_name" on
+# the storage_host. For example, the remote volume path using these
+# options would be "nfs.example.com:/exports/registry"
+openshift_hosted_registry_storage_kind=nfs
+openshift_hosted_registry_storage_access_modes=['ReadWriteMany']
+openshift_hosted_registry_storage_nfs_directory=/exports/nfs/openshift
+openshift_hosted_registry_storage_volume_name=registry
+openshift_hosted_registry_storage_nfs_options="*(rw,root_squash)"
+openshift_hosted_registry_storage_volume_size=50Gi
+#openshift_hosted_registry_storage_host=127.0.0.1
+
+openshift_hosted_metrics_deploy=true
+openshift_hosted_metrics_storage_kind=nfs
+openshift_hosted_metrics_storage_access_modes=['ReadWriteMany']
+openshift_hosted_metrics_storage_nfs_directory=/exports/nfs/openshift
+openshift_hosted_metrics_storage_volume_name=metrics
+openshift_hosted_metrics_storage_nfs_options="*(rw,root_squash)"
+openshift_hosted_metrics_storage_volume_size=40Gi
+
+openshift_hosted_logging_deploy=true
+openshift_hosted_logging_storage_kind=nfs
+openshift_hosted_logging_storage_access_modes=['ReadWriteOnce']
+openshift_hosted_logging_storage_nfs_directory=/exports/nfs/openshift
+openshift_hosted_logging_storage_volume_name=logging
+openshift_hosted_logging_storage_nfs_options="*(rw,root_squash)"
+openshift_hosted_logging_storage_volume_size=30Gi
+
+openshift_enable_service_catalog=true
+openshift_hosted_etcd_storage_kind=nfs
+openshift_hosted_etcd_storage_nfs_options="*(rw,root_squash)"
+openshift_hosted_etcd_storage_nfs_directory=/exports/nfs/openshift
+openshift_hosted_etcd_storage_volume_name=etcd
+openshift_hosted_etcd_storage_access_modes=["ReadWriteOnce"]
+openshift_hosted_etcd_storage_volume_size=20Gi
+openshift_template_service_broker_namespaces=['openshift']
+
+
+# host group for masters
+[masters]
+ocp.example.com
+
+[nfs]
+ocp.example.com
+
+# host group for nodes, includes region info
+[nodes]
+ocp.example.com openshift_node_labels="{'region': 'infra'}" openshift_schedulable=true 
+
