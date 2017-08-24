@@ -52,6 +52,7 @@ openshift_hosted_metrics_storage_nfs_directory=/exports/nfs/openshift
 openshift_hosted_metrics_storage_volume_name=metrics
 openshift_hosted_metrics_storage_nfs_options="*(rw,root_squash)"
 openshift_hosted_metrics_storage_volume_size=40Gi
+#openshift_hosted_metrics_storage_host=127.0.0.1
 
 openshift_hosted_logging_deploy=true
 openshift_hosted_logging_storage_kind=nfs
@@ -60,6 +61,7 @@ openshift_hosted_logging_storage_nfs_directory=/exports/nfs/openshift
 openshift_hosted_logging_storage_volume_name=logging
 openshift_hosted_logging_storage_nfs_options="*(rw,root_squash)"
 openshift_hosted_logging_storage_volume_size=30Gi
+#openshift_hosted_logging_storage_host=127.0.0.1
 
 openshift_enable_service_catalog=true
 openshift_hosted_etcd_storage_kind=nfs
@@ -68,6 +70,8 @@ openshift_hosted_etcd_storage_nfs_directory=/exports/nfs/openshift
 openshift_hosted_etcd_storage_volume_name=etcd
 openshift_hosted_etcd_storage_access_modes=["ReadWriteOnce"]
 openshift_hosted_etcd_storage_volume_size=20Gi
+#openshift_hosted_etcd_storage_host=127.0.0.1
+
 openshift_template_service_broker_namespaces=['openshift']
 
 
