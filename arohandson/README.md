@@ -17,7 +17,7 @@ https://developers.redhat.com/products/codeready-workspaces/download
 
 
 
-Red Hat CodeReady Workspacesの最新版は2.0までリリースしていますが、本ハンズオンでは、1.0.2 をダウンロードしてください。ダウンロード後にインストーラを解凍して下記を実行します。このコマンドで、ARO上に`workspaces`プロジェクトが自動的に作成され、その中にRed Hat CodeReady Workspacesのコンテナアプリがデプロイされます。
+Red Hat CodeReady Workspacesの最新版は2.0までリリースしていますが、本ハンズオンでは、1.0.2 をダウンロードしてください。ダウンロード後にインストーラを解凍して下記を実行します。このコマンドで、ARO上に`<YOUR_CODEREADY_PROJECT_NAME>`プロジェクトが自動的に作成され、その中にRed Hat CodeReady Workspacesのコンテナアプリがデプロイされます。なおプロジェクト名は、アカウント名を先頭や末尾につけるなどして、一意になるようにしてください。
 
 ```
 $ oc login https://<URL_of_ARO> --token=<token_of_your_ARO>
@@ -25,12 +25,9 @@ $ tar xvf codeready-workspaces-1.0.2.GA-operator-installer.tar.gz
 $ cd codeready-workspaces-operator-installer
 $ ./deploy.sh --deploy \
   --operator-image=registry.redhat.io/codeready-workspaces/server-operator:1.0 \
-  --server-image=registry.redhat.io/codeready-workspaces/server-rhel8:1.2
+  --server-image=registry.redhat.io/codeready-workspaces/server-rhel8:1.2 \
+  -p=<YOUR_CODEREADY_PROJECT_NAME>
 ```
 
-CodeReady Workspacesのデプロイが完了したら、`username: admin, password: admin`でログインします。
-
-
-
-ログイン後は、作業スペースとなるWorkspaceを作成します。ログインあとは
+CodeReady Workspacesのデプロイが完了したら、`username: admin, password: admin`でログインします。ログイン後は、作業スペースとなるWorkspaceを作成します。`Spring Boot`スタックを選択して、`Create and Proceed Editing`をクリックします。
 
