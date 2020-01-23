@@ -43,7 +43,7 @@
   "attributes": {},
   "commands": [
     {
-      "commandLine": "mvn package -f ${current.project.path}",
+      "commandLine": "MAVEN_OPTS='-Xmx200m' && mvn clean install -f ${current.project.path}/pom.xml",
       "name": "build",
       "attributes": {
         "goal": "Build",
