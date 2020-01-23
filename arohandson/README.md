@@ -33,6 +33,6 @@ CodeReady Workspacesのデプロイが完了したら、`username: admin, passwo
 
 <img src="https://github.com/h-kojima/openshift/blob/master/arohandson/images/crw-create.png" width="100%" height="100%">
 
-`Config`のJSONファイルを編集します。本ハンズオン用に提供しています専用のコンテナイメージを利用してWorkspaceを作成しますので、参照するイメージのURLを`registry.redhat.io/codeready-workspaces/stacks-java-rhel8`から`quay.io/openshiftlabs/cloudnative-workspaces-quarkus:1.3`に変更します。
+`Config`のJSONファイルを編集します。本ハンズオン用に提供しています専用のコンテナイメージを利用してWorkspaceを作成しますので、参照するイメージのURLを`registry.redhat.io/codeready-workspaces/stacks-java-rhel8`から`quay.io/openshiftlabs/cloudnative-workspaces-quarkus:1.3`に変更します。そして、右上の`RUN`を実行します。
 
 <img src="https://github.com/h-kojima/openshift/blob/master/arohandson/images/workspace-config.png" width="100%" height="100%">
